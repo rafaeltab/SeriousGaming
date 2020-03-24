@@ -1,0 +1,72 @@
+#register {
+	width: 300px;
+	height:350px;
+
+	background: #555;
+	border-color: #5858ff;
+
+	border-width: 3px;
+	border-style: solid ;
+	border-radius: 10px;
+}
+
+#register .center-inner {
+	width: 80%;
+}
+
+.register-input {
+	width: 80%;
+	height: 30px;
+
+	margin-top: 10px;
+	padding: 5px 20px;
+
+	border-radius: 25px;
+	background-color: #6868ff;
+	border-color: #8181CF;	
+
+	font-size: 20px;
+	color: #eee;
+}
+
+.register-input:focus {
+	outline: none;
+}
+
+.register-buttons {
+	width: 100%;
+}
+
+.register-button {
+	width: 47%;	
+	margin-top: 20px;	
+	padding: 5px 15px;
+
+	float: right;
+
+	border-radius: 25px;
+
+	background-color: #6868ff;
+	border-color: #8181CF;
+
+	color: #eee;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.register-button:focus {
+	outline: none;
+}
+
+.register-submit{
+	float: left;
+}
+
+.register-forgot {
+	text-decoration: none;
+	color: #eee;
+	width: 100%;
+	position: absolute;
+	text-align: center;
+	margin-top: 10px;
+}

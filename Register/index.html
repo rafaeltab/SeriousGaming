@@ -1,0 +1,44 @@
+<!--Dit is het start scherm, wss met register ofzo iets-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+
+		<!-- stylesheets -->
+		<link rel="stylesheet" href="all.css"/>		
+		<link rel="stylesheet" href="register.css"/>	
+
+		<!-- script imports-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+		<!-- fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<div class="site-back center-outer"> <!-- Container for entire website adds the background -->
+			<div class="center-inner">	
+						
+				<form id="register">
+					<div class="center-inner">
+
+						<input type="text" id="username" name="uname" class="register-input"/><br>
+						<input type="password" id="password" name="upass" class="register-input"/>
+						<div class="register-buttons">
+							<input type="submit" id="submit" name="submit" class="register-submit register-button" value="register" />
+							<button id="login" class="register-button">Login</button>
+						</div><br><br><br>
+						<a href="#" class="register-forgot">I forgot my password</a>		
+
+					</div>					
+				</form>
+
+			</div>
+		</div>
+		<script type="text/javascript">
+			$("#login").click(function () {
+				//alert("click");
+				window.open('../Login/index.html', '_self');
+			});
+		</script>
+	</body>
+</html>
