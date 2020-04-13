@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>	
+		<meta charset="UTF-8">
+
+		<title>Play - YEET</title>
+
+		<!-- stylesheets -->
+		<link rel="stylesheet" href="../all.css"/>		
+		<link rel="stylesheet" href="play.css"/>	
+
+		<!-- script imports-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+		<!-- fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+		<script src="/Site/SeriousGaming/json/chapterInfo.js" ></script>
+	</head>
+	<body>
+		<div class="site-back center-outer">
+			<div class="center-inner play-chapters">
+				<script type="text/javascript">									
+
+					let infos = [];
+
+					var selectedChapter = 0;
+
+					for(rowID = 0; rowID < json["rows"].length; rowID++){
+						//Create a row as a string 
+						var RowHeader = '<div class="play-chapters-row" id="row-'+rowID+'">';
+
+						var chapters = "";
+
+						var chapterIDs = json["rows"][rowID];
+
+						for (var i = 0; i < json["rows"][rowID].length; i++) {
+							let chapter = json["chapters"][chapterIDs[i]];
+
+							let id = 'chap-'+chapter["id"];
+
+							let chapHeader = '<div class="play-chapters-chapter" id="'+id+'">';
+							let chapTitle = '<h2 class="play-chapters-chapter-title">'+chapter["title"]+'</h2>';
+
+							let chapButton;
+							if(chapter["completed"]){
+								chapButton = '<button class="play-chapters-chapter-button border-green" />';
+							}else{
+								chapButton = '<button class="play-chapters-chapter-button border-red" />';
+							}
+
+							let chapEnd = '</div>';
+
+							let d = {
+								"id" : chapter["id"],
+								"htmlId" : "#" + id + " > .play-chapters-chapter-button",
+								"info" : chapter["info"]
+							};
+							infos.push(d);
+
+							chapters += chapHeader + chapTitle + chapButton + chapEnd;
+						}
+
+						var RowEnd = '</div>';
+
+						//append the row
+						$(".play-chapters").append(RowHeader + chapters + RowEnd);
+					}		
+
+
+					for (var i = 0; i < infos.length; i++) {
+						let inf = infos[i];
+						$(inf["htmlId"]).click(function (){
+							$(".play-info-text").html(inf["info"]);
+							selectedChapter = inf["id"];
+						});
+					}	
+
+
+				</script>	
+
+				<!-- chapters go here -->
+			</div>
+
+			<div class="play-info">				
+				
+				<div class="play-info-text">
+					Yeet
+					<!-- chapter info goes here -->
+				</div>
+				<button class="play-multi play-btn">Multiplayer</button>
+				<button class="play-single play-btn">Singleplayer</button>
+
+			</div>
+
+			<script type="text/javascript">
+				$(".play-info-text").html(json["chapters"][0]["info"]);
+
+				let click = 0;
+
+				$(".play-multi").click(function (){
+					click++;
+					if(click > 5){
+						window.open("/Site/SeriousGaming/tenor.gif");
+					}else{
+						alert("I see you tried to click multiplayer, unfortunatly that feature is not implemented. \n\n Keep clicking this button and you will get a curse.");
+					}							
+				});
+
+				$(".play-single").click(function (){
+					//go to actual play
+					window.open("/Site/SeriousGaming/Chapter/?chapterID=" + selectedChapter, '_self');
+
+				});		
+
+			</script>	
+		</div>
+	</body>
+</html>

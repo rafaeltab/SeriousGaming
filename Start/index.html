@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		<meta charset="UTF-8">
+		
+		<title>Start - YEET</title>
+
+		<!-- stylesheets -->
+		<link rel="stylesheet" href="../all.css"/>		
+		<link rel="stylesheet" href="start.css"/>	
+
+		<!-- script imports-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+		<!-- fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">	
+
+	</head>
+	<body>
+
+		<div class="site-back center-outer"> <!-- Container for entire website adds the background -->
+			<div class="center-inner">	
+
+				<h1 class="start-logo">YEET</h1>
+
+				<button class="start-play start-button">Play</button> <br>
+				<button class="start-options start-button">Options</button> <br>
+				<button class="start-quit start-button">Quit</button> <br>
+
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			$(".start-play").click(function (){
+				//go to play
+				window.open('../Play', '_self');
+			});
+
+			$(".start-options").click(function (){
+				//go to play
+				window.open('../Options', '_self');
+			});
+
+			$(".start-quit").click(function (){
+				//close page ?
+				window.open('../Login', '_self');
+			});
+		</script>
+	</body>
+</html>

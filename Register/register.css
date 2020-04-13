@@ -61,12 +61,3 @@
 .register-submit{
 	float: left;
 }
-
-.register-forgot {
-	text-decoration: none;
-	color: #eee;
-	width: 100%;
-	position: absolute;
-	text-align: center;
-	margin-top: 10px;
-}

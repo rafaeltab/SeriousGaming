@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>	
+		<meta charset="UTF-8">
+
+		<title>Chapter - YEET</title>
+
+		<!-- stylesheets -->
+		<link rel="stylesheet" href="../all.css"/>		
+		<link rel="stylesheet" href="Chapter.css"/>	
+
+		<!-- script imports-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+		<!-- fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+		<script src="/Site/SeriousGaming/json/chapterInfo.js" ></script>
+		
+		<script type="text/javascript">
+			function findGetParameter(parameterName) {
+			    var result = null,
+			        tmp = [];
+			    location.search
+			        .substr(1)
+			        .split("&")
+			        .forEach(function (item) {
+			          tmp = item.split("=");
+			          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+			        });
+			    return result;
+			}
+
+			let chapID = parseInt(findGetParameter("chapterID"));
+
+			document.title = json["chapters"][chapID]["title"];
+		</script>
+
+
+
+	</head>
+<body>
+
+	<div class="chapter-section right">
+		<div id="editor">function Run(){
+    //todo
+}</div>
+	</div>
+
+	<div class="chapter-section left" id="chapterinfo">
+		<!-- load info about the chapter here --> 
+		<canvas id="problem-display" width=300 height=300></canvas><br>
+	</div>
+
+	<script type="text/javascript">
+
+
+		$.getJSON("/Site/SeriousGaming/Chapters/Chapter" + chapID + ".json", function(data) {
+			$("#chapterinfo").append(data["Objective"]);
+			console.log(data);
+		})
+		.fail(function(){
+			alert("failure getting chapter from the server.");
+			window.open('../Play', '_self');
+		});
+
+		var canvas = document.getElementById("problem-display");
+		var ctx = canvas.getContext("2d");
+		ctx.fillStyle= "red";
+		ctx.beginPath();
+		ctx.ellipse(150,150,50,50,0, 0, 2 * Math.PI,false);
+		ctx.fill();
+		
+	</script>	
+
+	<script src="/Site/SeriousGaming/libs/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//setup the editor
+		var editor = ace.edit("editor");
+		editor.setTheme("ace/theme/monokai");
+    	editor.session.setMode("ace/mode/javascript");
+	</script>
+	
+</body>
+</html>

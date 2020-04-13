@@ -4,8 +4,10 @@
 	<head>
 		<meta charset="UTF-8">
 
+		<title>Login - YEET</title>
+
 		<!-- stylesheets -->
-		<link rel="stylesheet" href="all.css"/>		
+		<link rel="stylesheet" href="../all.css"/>		
 		<link rel="stylesheet" href="login.css"/>	
 
 		<!-- script imports-->
@@ -18,16 +20,16 @@
 		<div class="site-back center-outer"> <!-- Container for entire website adds the background -->
 			<div class="center-inner">	
 						
-				<form id="login">
+				<form id="login" action="login.php" method="POST">
 					<div class="center-inner">
 
 						<input type="text" id="username" name="uname" class="login-input"/><br>
 						<input type="password" id="password" name="upass" class="login-input"/>
 						<div class="login-buttons">
 							<input type="submit" id="submit" name="submit" class="login-submit login-button" value="Login" />
-							<button id="register" class="login-button">Register</button>
+							<button type="button" id="register" class="login-button">Register</button>
 						</div><br><br><br>
-						<a href="#" class="login-forgot">I forgot my password</a>		
+						<a href="#" onclick="alert('testuser:testuser')" class="login-forgot">I forgot my password</a>		
 
 					</div>					
 				</form>
@@ -37,8 +39,11 @@
 		<script type="text/javascript">
 			$("#register").click(function () {
 				//alert("click");
-				window.open('../Register/index.html', '_self');
+				window.open('../Register', '_self');
 			});
+
+			alert("press F11");
+			
 		</script>
 	</body>
 </html>
