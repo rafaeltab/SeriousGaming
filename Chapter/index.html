@@ -41,22 +41,70 @@
 <body>
 
 	<div class="chapter-section right">
-		<div id="editor">function Run(){
-    //todo
+		<div id="editor">async function run(){
+	await MoveDown();
+	await MoveDown();
+	await MoveDown();
 }</div>
 	</div>
 
 	<div class="chapter-section left" id="chapterinfo">
 		<!-- load info about the chapter here --> 
-		<canvas id="problem-display" width=300 height=300></canvas><br>
+		<canvas id="problem-display" width=420 height=420></canvas><br>
+		<button class="run-button" onclick="ExecuteCode()">Run</button>
 	</div>
-
+	<div class="center-inner" id="win-display">
+		<h1>You won Jay!</h1>
+		<p>
+			Congratulations on winning, the reward is self confidence!
+			Sorry we don't have a point counting system yet. But to make up for it we've got a cool animation!
+		</p>
+		<h3 id="cool-anim">
+			0
+		</h3>
+		<button id="go-back" onclick="window.open('../Play','_self')">Go back</button>
+	</div>
+	<!-- winning logic -->
 	<script type="text/javascript">
+		$("#win-display").hide();
+		function win(){
+			//dispay win
+			$("#win-display").show();
 
+			let c = 0;
+			setInterval(function(){
+				$("#cool-anim").html("points: " + c);
+				if(c % 5 == 0 && c < 1000000){
+					c+=100;
+				}
+				if(c % 9 == 0 && c < 1000000){
+					c+=1213;
+				}
+				if(c % 10 == 0 && c < 1000000){
+					c+=32131;
+				}
+				if(c < 1000000){
+					c++;
+				}else{
+					$('#cool-anim').css("font-size", "40px");
+					$('#cool-anim').css("color", "#eeee00");
+				}		
+			},20);
+		}
+		
+	</script>
+	<!-- full logic for playing -->
+	<script type="text/javascript">
+		const delay = ms => new Promise(res => setTimeout(res, ms));
+		let chapterData;
+		let retrieved = false;
 
 		$.getJSON("/Site/SeriousGaming/Chapters/Chapter" + chapID + ".json", function(data) {
+			$("#chapterinfo").append(data["info"] + "<br><br><br>");
 			$("#chapterinfo").append(data["Objective"]);
 			console.log(data);
+			chapterData = data;
+			retrieved = true;
 		})
 		.fail(function(){
 			alert("failure getting chapter from the server.");
@@ -65,20 +113,98 @@
 
 		var canvas = document.getElementById("problem-display");
 		var ctx = canvas.getContext("2d");
-		ctx.fillStyle= "red";
-		ctx.beginPath();
-		ctx.ellipse(150,150,50,50,0, 0, 2 * Math.PI,false);
-		ctx.fill();
 		
-	</script>	
+		//grid is 21x21
+		let pos;
+		async function reset(){
+			pos = {"x":10,"y":10};
+			draw();
+			await delay(1000);
 
+		}
+		reset();
+
+		let i = 0;
+		var interval = setInterval(draw,100);
+		function draw(){
+			if(pos["x"] > 20){
+				pos["x"] = 20;
+			}
+			if(pos["x"] < 0){
+				pos["x"] = 0;
+			}
+			if(pos["y"] > 20){
+				pos["y"] = 20;
+			}
+			if(pos["y"] < 0){
+				pos["y"] = 0;
+			}
+
+			ctx.fillStyle= "red";
+			ctx.clearRect(0,0,canvas.width,canvas.height);
+			ctx.beginPath();
+			ctx.ellipse(pos["x"]*20 + 10,pos["y"]*20 + 10,10,10,0, 0, 2 * Math.PI,false);
+			ctx.fill();
+
+			if(retrieved){
+				mission = chapterData["Mission"]
+				if(pos["x"] == mission["x"] && pos["y"] == mission["y"]){
+					//completed
+					win();
+
+					console.log("yata");
+					clearInterval(interval);
+
+					return;
+				}
+
+				ctx.fillStyle= "black";
+				
+				ctx.beginPath();
+				ctx.ellipse(mission["x"]*20 + 10,mission["y"]*20 + 10,10,10,0, 0, 2 * Math.PI,false);
+				ctx.fill();
+			}
+		}
+		
+		async function MoveUp(){
+			pos["y"]--;
+			await delay(500);
+		}
+ 		async function MoveDown(){
+ 			pos["y"]++;
+ 			await delay(500);
+ 		}
+ 		async function MoveLeft(){
+ 			pos["x"]--;
+ 			await delay(500);
+ 		}
+ 		async function MoveRight(){
+ 			pos["x"]++;
+ 			await delay(500);
+ 		}
+ 		function GetPosition(){
+ 			return {"x" : pos["x"], "y" : pos["y"]};
+ 		}
+ 		function GetMission(){
+ 			mission = chapterData["Mission"]
+ 			return {"x" : mission["x"], "y" : mission["y"]};
+ 		}
+ 		
+		async function ExecuteCode(){
+			await reset();
+			$("#run-script").remove();
+			$("#chapterinfo").append('<script type="text/javascript" id="run-script">' + editor.getValue() + '</scr' + 'ipt>');
+			run();
+		}
+	</script>	
 	<script src="/Site/SeriousGaming/libs/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 		//setup the editor
 		var editor = ace.edit("editor");
 		editor.setTheme("ace/theme/monokai");
-    	editor.session.setMode("ace/mode/javascript");
+	    editor.session.setMode("ace/mode/javascript");
 	</script>
+	
 	
 </body>
 </html>

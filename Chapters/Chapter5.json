@@ -1,0 +1,10 @@
+{
+	"id" : 5,
+	"title": "titlesix",
+    "info": "This is chapter six! Lets introduce ourselves yes? I am YEET<br>I have been made by some very cool and smart programmers so please let them pass this course ok?.",
+    "Objective" : "The objective here is to move the ball to the black hole",
+    "Mission" : {
+    	"x" : 6,
+    	"y" : 16
+    }
+}

@@ -1,0 +1,23 @@
+async function run(){
+	let mission = GetMission();
+	let pos = GetPosition();
+	
+	let xDiff = mission["x"] - pos["x"];
+	let yDiff = mission["y"] - pos["y"];
+	
+	for(var x = 0; x < Math.abs(xDiff); x++ ){
+	    if(xDiff > 0){
+	        await MoveRight();
+	    }else{
+	        await MoveLeft();
+	    }
+	}
+	
+	for(var y = 0; y < Math.abs(yDiff); y++ ){
+	    if(yDiff > 0){
+	        await MoveDown();
+	    }else{
+	        await MoveUp();
+	    }
+	}
+}
